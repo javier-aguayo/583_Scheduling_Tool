@@ -103,7 +103,7 @@ public class Task {
     public int getDurFloat() {
     	return durFloat;
     }
-    public void setDurFloat() {
+    public void setDurFloat(int durFloat) {
     	this.durFloat = durFloat;
     }
 }

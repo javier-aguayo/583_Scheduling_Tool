@@ -71,8 +71,36 @@ public class SchedulingTool {
     }
 
     public void calculateLate() {
-      	//mani's algorithm here
+//		finding the max finish time
+		int finishTasksLatestEnd = 0;
+		for (Task task : finalTasks){
+			if(finishTasksLatestEnd < task.getEarlyFinish()){
+				finishTasksLatestEnd = task.getEarlyFinish();
+			}
+		}
+//		calculating latest times for finished tasks and their dependencies
+		for (Task task : finalTasks){
+			calculateLateDepend(task , finishTasksLatestEnd);
+		}
+
     }
+
+//    calculating latest times recursively until there is no dependency for the task
+    private void calculateLateDepend(Task task , int latestEnd){
+		List<Task> dependTasks = task.getDependencies();
+		calculateLateDependHelper(task, latestEnd);
+		for (Task dependTask : dependTasks){
+			calculateLateDepend(dependTask, task.getLatestStart());
+		}
+	}
+
+//	calculate latest times for the task
+    private void calculateLateDependHelper(Task task, int latestEnd){
+		task.setLatestFinish(latestEnd);
+		task.setDurFloat(task.getLatestFinish() - task.getEarlyFinish());
+		task.setLatestStart(task.getLatestFinish() - task.getDuration());
+	}
+
 
     // critical path algorithm
 	public void calculateCriticalPath() {
