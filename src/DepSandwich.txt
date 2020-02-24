@@ -1,9 +1,3 @@
-﻿#Task Dependency text sheet. 
-#Here all the dependencies are listed, with respect to the path they are on.
-
-
-
-
 Start, SR
 SR, PO
 SR, MD

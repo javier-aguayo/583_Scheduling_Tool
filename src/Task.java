@@ -106,4 +106,7 @@ public class Task {
     public void setDurFloat(int durFloat) {
     	this.durFloat = durFloat;
     }
+    public void addToDependencies(Task dependency) {
+        this.dependencies.add(dependency);
+    }
 }

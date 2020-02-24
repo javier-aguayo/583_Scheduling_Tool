@@ -1,7 +1,3 @@
-﻿#Task List sheet. 
-#Format is: an Identifier for each task, the full name of the task(which will be ignored by the program), duration in minutes
-
-
 SR, Sandwich Requirement, 1
 PO, Prepare Owen, 1
 MD, Mix Dough, 5
