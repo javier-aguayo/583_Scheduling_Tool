@@ -23,6 +23,8 @@ public class Task {
     private int latestFinish;
     // the difference between earliest start and latest start or earliest finish and latest finish.
     private int durFloat;
+    // the difference between earliest start and latest end
+    private int span;
 	
 	// chart ganttChart;
 
@@ -51,7 +53,7 @@ public class Task {
 	public String toString() {
 		return uniqueID + "," + description +
             "," + earlyStart + "," + duration + "," + earlyFinish +
-            "," + latestStart + "," + durFloat + "," + latestFinish;
+            "," + latestStart + "," + durFloat + "," + latestFinish + "," + span;
 	}
 	
 	public int getDuration() {
@@ -106,6 +108,13 @@ public class Task {
     public void setDurFloat(int durFloat) {
     	this.durFloat = durFloat;
     }
+    public int getSpan() {
+        return span;
+    }
+    public void setSpan(int span) {
+        this.span = span;
+    }
+
     public void addToDependencies(Task dependency) {
         this.dependencies.add(dependency);
     }

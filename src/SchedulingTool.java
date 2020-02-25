@@ -31,7 +31,7 @@ public class SchedulingTool {
     private static final String INPUT_EXTENSION = ".txt";
     private static final String FILE_HEADER = "Task uniqueID,Description" +
             ",Earliest Start Time,Duration,Earliest Finish Time" +
-            ",Latest Start Time,Float,Latest Finish Time";
+            ",Latest Start Time,Float,Latest Finish Time,Span";
     private static final String OUTPUT_EXTENSION = ".csv";
     
 
@@ -185,6 +185,7 @@ public class SchedulingTool {
 		task.setLatestFinish(latestEnd);
 		task.setDurFloat(task.getLatestFinish() - task.getEarlyFinish());
 		task.setLatestStart(task.getLatestFinish() - task.getDuration());
+		task.setSpan(task.getLatestFinish() - task.getEarlyStart());
 	}
 
 
