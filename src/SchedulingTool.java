@@ -27,9 +27,13 @@ public class SchedulingTool {
 	
 	private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
-    private static final String FILE_HEADER = "Task uniqueID: description" +
-            ", Top: earlyStart - duration - earlyFinish" +
-            ", Bottom: latestStart - durFloat - latestFinish";
+    private static final String INPUT_PREFIX = "Task";
+    private static final String INPUT_EXTENSION = ".txt";
+    private static final String FILE_HEADER = "Task uniqueID,Description" +
+            ",Earliest Start Time,Duration,Earliest Finish Time" +
+            ",Latest Start Time,Float,Latest Finish Time";
+    private static final String OUTPUT_EXTENSION = ".csv";
+    
 
 	public void readInputs(String definitionFileName, String dependencyFileName) {
 		//Populate the task array "tasks" above
@@ -44,7 +48,7 @@ public class SchedulingTool {
 				else {
 					String uniqueID = attributes[0].trim();
 					String description = attributes[1].trim();
-					int duration;
+					int duration = 1; //if exception is caught, duration remains as 1
 					try {
 						duration = Integer.parseInt(attributes[2].trim());
 						Task task = new Task(uniqueID, description, duration);
@@ -204,11 +208,15 @@ public class SchedulingTool {
 		
 	}
 	
-	public void writeOutputs() {
+	public void writeOutputs(String definitionFileName) {
         FileWriter fileWriter = null;
+        String projectName = definitionFileName
+        		.replaceAll(".*/", "")
+        		.replaceAll(INPUT_PREFIX, "")
+        		.replaceAll(INPUT_EXTENSION, "");
                  
         try {
-            fileWriter = new FileWriter("Sandwich_Project.csv");
+            fileWriter = new FileWriter(projectName + "_Project" + OUTPUT_EXTENSION);
  
             fileWriter.append(FILE_HEADER.toString());
             
@@ -218,6 +226,19 @@ public class SchedulingTool {
                 fileWriter.append(tasks.toString());
 				fileWriter.append(NEW_LINE_SEPARATOR);
             }
+
+            fileWriter.append(NEW_LINE_SEPARATOR);
+            fileWriter.append("CRITICAL PATH");
+			fileWriter.append(NEW_LINE_SEPARATOR);
+
+			int i = 1;
+			for (Task task : criticalPath) {
+				fileWriter.append(i + ". ");
+				fileWriter.append(task.getDescription());
+				fileWriter.append(NEW_LINE_SEPARATOR);
+				
+				i++;
+			}
              
             System.out.println("CSV file was created successfully !!!");
              
@@ -244,7 +265,7 @@ public class SchedulingTool {
 		calculateLate();
 		calculateCriticalPath();
 
-		writeOutputs();
+		writeOutputs(definitionFileName);
 	}
 
 	public List<Task> getTasks() {

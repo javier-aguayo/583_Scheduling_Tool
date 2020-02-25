@@ -49,9 +49,9 @@ public class Task {
     }
 	
 	public String toString() {
-		return "Task " + uniqueID + ": " + description +
-            ", Top: " + earlyStart + "-" + duration + "-" + earlyFinish +
-            ", Bottom: " + latestStart + "-" + durFloat + "-" + latestFinish;
+		return uniqueID + "," + description +
+            "," + earlyStart + "," + duration + "," + earlyFinish +
+            "," + latestStart + "," + durFloat + "," + latestFinish;
 	}
 	
 	public int getDuration() {
